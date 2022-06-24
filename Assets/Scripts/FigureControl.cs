@@ -9,27 +9,27 @@ public class FigureControl : MonoBehaviour
 {
 
     private Vector3 mOffset;
-
     private Vector3 figureTransform;
+    private Vector3 freezedTransform;
 
     private float mZCoord;
 
-    private bool isDragging = false;
+    private int innerType;
 
+    private bool isDragging = false;
     private bool isChecked = false;
+    private bool startPositionCheck = false;
+    [SerializeField] private bool canMove = true;
 
     [SerializeField] private GameObject timerBar;
-
     [SerializeField] private PositionChecker _positionChecker;
-
-    [SerializeField] private bool canMove = true;
 
     void OnMouseDown()
     {
         if (canMove && _positionChecker.canBeGrabbed)
         {
             isDragging = true;
-            Debug.Log("Is Dragging");
+            //Debug.Log("Is Grabbed");
             mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             mOffset = gameObject.transform.position - GetMouseWorldPos();
         }
@@ -45,10 +45,23 @@ public class FigureControl : MonoBehaviour
             else figureTransform.z = 10f;
         }
         transform.position = figureTransform;
+        if (startPositionCheck)
+        {
+            if (transform.position != freezedTransform && innerType != 1)
+            {
+                //Debug.Log("position changed");
+                Vector3 currentPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                if (currentPosition.y < freezedTransform.y)
+                {
+                    //Debug.Log("points loss");
+                }
+            }
+        }
     }
 
     void OnMouseDrag()
     {
+        //Debug.Log("Is Dragging");
         if (canMove && _positionChecker.canBeGrabbed)
             transform.position = GetMouseWorldPos() + mOffset;
     }
@@ -86,8 +99,9 @@ public class FigureControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Figure"))
         {
-            Debug.Log("left collision");
-            Destroy(transform.GetChild(0).gameObject);
+            //Debug.Log("left collision");
+            if (transform.GetChild(0).gameObject != null)
+                Destroy(transform.GetChild(0).gameObject);
         }
     }
     
@@ -95,7 +109,7 @@ public class FigureControl : MonoBehaviour
     {
         if (!isChecked)
         {
-            Debug.Log("Collision detected");
+            //Debug.Log("Collision detected");
             canMove = false;
             figureTransform = transform.position;
             if (type == 0)
@@ -104,9 +118,18 @@ public class FigureControl : MonoBehaviour
                     Quaternion.identity).transform.SetParent(gameObject.transform);
                 StartCoroutine(CheckPosition());
             }
-
+            else if (type == 1)
+                FreezeFigure();
             isChecked = true;
+            innerType = type;
         }
+    }
+
+    public void FreezeFigure()
+    {
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        freezedTransform = transform.position;
+        startPositionCheck = true;
     }
     
     IEnumerator CheckPosition()
