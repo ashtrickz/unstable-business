@@ -30,6 +30,7 @@ public class FigureControl : MonoBehaviour
     [SerializeField] private StateColorChanger _stateColorChanger;
     [SerializeField] private CinemachineShake _cinemachineShake;
     [SerializeField] private Material particlesMaterial;
+    [SerializeField] private AudioSource audioSource;
     
     void OnMouseDown()
     {
@@ -116,6 +117,7 @@ public class FigureControl : MonoBehaviour
                 particlesMaterial.color = _stateColorChanger.previousColor;
                 Instantiate(hitParticles, collider.transform.position, Quaternion.identity);
                 _cinemachineShake.ShakeCamera(1f,0.3f);
+                audioSource.Play();
             }
     }
 
@@ -134,6 +136,7 @@ public class FigureControl : MonoBehaviour
             figureTransform = transform.position;
             if (type == 0)
             {
+                audioSource.Play();
                 _cinemachineShake.ShakeCamera(1f,0.3f);
                 Instantiate(timerBar, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
                     Quaternion.identity).transform.SetParent(gameObject.transform);
@@ -141,6 +144,7 @@ public class FigureControl : MonoBehaviour
             }
             else if(_positionChecker.freePodium)
             {
+                audioSource.Play();
                 StartCoroutine(FreezePause());
                 _positionChecker.freePodium = false;
             }
