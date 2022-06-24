@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject mainMenu;
-    
+    [SerializeField] private AudioSource audioSource;
     private string currentLevel;
 
     void Awake() => DontDestroyOnLoad(this.gameObject);
@@ -31,5 +31,12 @@ public class LevelManager : MonoBehaviour
                 SceneManager.LoadScene("Level3");
                 break;
         }
+    }
+
+    public void ToggleMusic()
+    {
+        if (audioSource.mute == false)
+            audioSource.mute = true;
+        else audioSource.mute = false;
     }
 }
