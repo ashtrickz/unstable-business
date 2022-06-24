@@ -6,4 +6,5 @@ public class PositionChecker : MonoBehaviour
 {
 
     public bool canBeGrabbed = true;
+    public bool freePodium = true;
 }

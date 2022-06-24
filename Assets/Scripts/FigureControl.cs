@@ -30,13 +30,12 @@ public class FigureControl : MonoBehaviour
     {
         if (canMove && _positionChecker.canBeGrabbed)
         {
-            isDragging = true;
-            //Debug.Log("Is Grabbed");
+            isDragging = true; //Debug.Log("Is Grabbed");
             mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             mOffset = gameObject.transform.position - GetMouseWorldPos();
         }
     }
-
+    
     void Update()
     {
         figureTransform = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -51,19 +50,18 @@ public class FigureControl : MonoBehaviour
         {
             if (transform.position != freezedTransform && innerType != 1)
             {
-                //Debug.Log("position changed");
-                Vector3 currentPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                Vector3 currentPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); //Debug.Log("position changed");
                 if (currentPosition.y < freezedTransform.y && !pointsLost)
                 {
                     Debug.Log("points loss");
                     _pointsSystem.LosePoints();
                     pointsLost = true;
-                    StartCoroutine(PointsChecker());
+                    PointsChecker();
                 }
             }
         }
     }
-
+    
     void OnMouseDrag()
     {
         //Debug.Log("Is Dragging");
@@ -88,9 +86,7 @@ public class FigureControl : MonoBehaviour
     {
         if (!isDragging && figureTransform.y > 3f)
             if (collision.gameObject.CompareTag("Figure"))
-            {
                 FigurePlaced(0);
-            }
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -103,18 +99,13 @@ public class FigureControl : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Figure"))
-        {
-            //Debug.Log("left collision");
-            if (transform.GetChild(0).gameObject != null)
-                Destroy(transform.GetChild(0).gameObject);
-        }
+            Destroy(transform.GetChild(0).gameObject); //Debug.Log("left collision");
     }
     
     void FigurePlaced(int type)
     {
-        if (!isChecked)
+        if (!isChecked) //Debug.Log("Collision detected");
         {
-            //Debug.Log("Collision detected");
             canMove = false;
             figureTransform = transform.position;
             if (type == 0)
@@ -123,7 +114,11 @@ public class FigureControl : MonoBehaviour
                     Quaternion.identity).transform.SetParent(gameObject.transform);
                 StartCoroutine(CheckPosition());
             }
-            else FreezeFigure();
+            else if(_positionChecker.freePodium)
+            {
+                FreezeFigure();
+                _positionChecker.freePodium = false;
+            }
             innerType = type;
         }
     }
@@ -145,9 +140,8 @@ public class FigureControl : MonoBehaviour
         _positionChecker.canBeGrabbed = true;
     }
 
-    IEnumerator PointsChecker()
+    void PointsChecker()
     {
-        yield return new WaitForSeconds(3f);
         if (transform.position.y >= freezedTransform.y - 0.1f)
             _pointsSystem.GetPoints();
     }
