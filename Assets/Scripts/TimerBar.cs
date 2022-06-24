@@ -44,6 +44,5 @@ public class TimerBar : MonoBehaviour
         Destroy(gameObject, time);
         _figureControl.FreezeFigure();
     }
-    
-    
+
 }

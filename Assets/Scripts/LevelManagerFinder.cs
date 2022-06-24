@@ -5,10 +5,10 @@ using UnityEngine;
 public class LevelManagerFinder : MonoBehaviour
 {
     
-    private LevelManager levelManager;
+    private LevelManager _levelManager;
     
     void Start() =>
-        levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        _levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
 
-    public void ManageLevel(int levelId) => levelManager.LevelChange(levelId);
+    public void ManageLevel(int levelId) => _levelManager.LevelChange(levelId);
 }

@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject levelPickPanel;
 
-    private LevelManager levelManager;
+    private LevelManager _levelManager;
     
     [SerializeField] private float headerBlinkSpeed = 2f;
     private float elapsedTime;
@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
     {
         menuPanel.SetActive(true);
         levelPickPanel.SetActive(false);
-        levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        _levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
     }
     
     void FixedUpdate()
@@ -71,5 +71,5 @@ public class MainMenu : MonoBehaviour
     
     public void QuitButton() => Application.Quit();
 
-    public void LevelButton(int levelId) => levelManager.LevelChange(levelId);
+    public void LevelButton(int levelId) => _levelManager.LevelChange(levelId);
 }

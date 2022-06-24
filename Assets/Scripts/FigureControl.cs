@@ -20,7 +20,7 @@ public class FigureControl : MonoBehaviour
     private bool isChecked = false;
     private bool startPositionCheck = false;
     private bool pointsLost = false;
-    [SerializeField] private bool canMove = true;
+    private bool canMove = true;
 
     [SerializeField] private GameObject timerBar;
     [SerializeField] private PositionChecker _positionChecker;

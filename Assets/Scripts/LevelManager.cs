@@ -10,10 +10,7 @@ public class LevelManager : MonoBehaviour
     
     private string currentLevel;
 
-    void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    void Awake() => DontDestroyOnLoad(this.gameObject);
 
     public void LevelChange(int levelId)
     {
