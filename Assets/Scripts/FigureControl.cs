@@ -26,6 +26,7 @@ public class FigureControl : MonoBehaviour
     [SerializeField] private PositionChecker _positionChecker;
     [SerializeField] private PointsSystem _pointsSystem;
     [SerializeField] private StateColorChanger _stateColorChanger;
+    [SerializeField] private CinemachineShake _cinemachineShake;
 
     void OnMouseDown()
     {
@@ -90,8 +91,10 @@ public class FigureControl : MonoBehaviour
     {
         if (!isDragging && figureTransform.y > 3f)
             if (collision.gameObject.CompareTag("Figure"))
+            {
                 FigurePlaced(0);
             }
+    }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -105,6 +108,7 @@ public class FigureControl : MonoBehaviour
                     _pointsSystem.LosePoints();
                     _stateColorChanger.ChangeStateColor(1);
                 }
+                _cinemachineShake.ShakeCamera(1f,0.3f);
             }
     }
 
@@ -123,6 +127,7 @@ public class FigureControl : MonoBehaviour
             figureTransform = transform.position;
             if (type == 0)
             {
+                _cinemachineShake.ShakeCamera(1f,0.3f);
                 Instantiate(timerBar, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
                     Quaternion.identity).transform.SetParent(gameObject.transform);
                 StartCoroutine(CheckPosition());
