@@ -1350,6 +1350,7 @@ GameObject:
   - component: {fileID: 1245780819}
   - component: {fileID: 1245780818}
   - component: {fileID: 1245780817}
+  - component: {fileID: 1245780820}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1405,6 +1406,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245780820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245780816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2ff39bb81783641a32e8d7140a1495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingFigures:
+  - {fileID: 2455674338328600751, guid: 6dc3594418046974280bc326b65e781d, type: 3}
+  - {fileID: 7047259547600565681, guid: 9d2b6dbe836ce914d9436070f86fc25b, type: 3}
+  - {fileID: 8368678644030832344, guid: 8895a2fdb29667544a68c280197b0240, type: 3}
 --- !u!1 &1269669173
 GameObject:
   m_ObjectHideFlags: 0
