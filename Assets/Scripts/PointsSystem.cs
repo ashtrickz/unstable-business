@@ -7,25 +7,29 @@ public class PointsSystem : MonoBehaviour
 {
 
     [SerializeField] private int requiredPoints = 3;
-    [SerializeField] private int aquiredPoints = 0;
+    [SerializeField] private int acquiredPoints = 0;
 
-    [SerializeField] public TMP_Text text;
+    [SerializeField] private TMP_Text text;
+
+    [SerializeField] private GameObject winMenu;
     
     public void GetPoints()
     {
-        aquiredPoints++;
+        acquiredPoints++;
         ChangePoints();
     }
 
     public void LosePoints()
     {
-        aquiredPoints--;
+        acquiredPoints--;
         ChangePoints();
     }
 
     private void ChangePoints()
     {
-        text.text = "Points: " + aquiredPoints + "/" + requiredPoints;
+        text.text = "Points: " + acquiredPoints + "/" + requiredPoints;
+        if (acquiredPoints == requiredPoints)
+            winMenu.SetActive(true);
     }
 
 }

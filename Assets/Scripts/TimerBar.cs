@@ -30,10 +30,10 @@ public class TimerBar : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-            float percentageComplete = elapsedTime / duration;
-            fronBar.fillAmount = Mathf.Lerp(startValue, endValue, Mathf.SmoothStep(0, 1, percentageComplete));
-            if (fronBar.fillAmount == 1)
-                TimerStop(pauseBeforeDestroy);
+        float percentageComplete = elapsedTime / duration;
+        fronBar.fillAmount = Mathf.Lerp(startValue, endValue, Mathf.SmoothStep(0, 1, percentageComplete));
+        if (fronBar.fillAmount == 1)
+            TimerStop(pauseBeforeDestroy);
     }
 
     void FixedUpdate() =>
