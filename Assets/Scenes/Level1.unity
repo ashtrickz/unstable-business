@@ -158,10 +158,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 6161206718050867791, guid: 6d1545027c8d1d548809b77beadf012e, type: 3}
+  hitParticles: {fileID: 2540639308284301124, guid: fd3eed7ae1ba9b342b000b09ab47f331, type: 3}
   _positionChecker: {fileID: 1063020458}
   _pointsSystem: {fileID: 406559250}
   _stateColorChanger: {fileID: 7224708}
   _cinemachineShake: {fileID: 970310758}
+  particlesMaterial: {fileID: 2100000, guid: 93bce6731c9067540b666493f131abc2, type: 2}
 --- !u!54 &7224703
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -252,7 +254,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7224708
 MonoBehaviour:
@@ -267,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   figureMaterial: {fileID: 2100000, guid: a8ae1eeac44956444848b03589d77335, type: 2}
+  previousColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &166222709
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +302,7 @@ Transform:
   - {fileID: 349457644}
   - {fileID: 1228131807}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &309363151
 GameObject:
@@ -1229,7 +1232,7 @@ Transform:
   m_LocalScale: {x: 10, y: 2.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &514692117
 GameObject:
@@ -1329,7 +1332,7 @@ RectTransform:
   - {fileID: 451047777}
   - {fileID: 411534826}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1474,7 +1477,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &618729345
 MonoBehaviour:
@@ -1489,10 +1492,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 6161206718050867791, guid: 6d1545027c8d1d548809b77beadf012e, type: 3}
+  hitParticles: {fileID: 2540639308284301124, guid: fd3eed7ae1ba9b342b000b09ab47f331, type: 3}
   _positionChecker: {fileID: 1063020458}
   _pointsSystem: {fileID: 406559250}
   _stateColorChanger: {fileID: 618729346}
   _cinemachineShake: {fileID: 970310758}
+  particlesMaterial: {fileID: 2100000, guid: 93bce6731c9067540b666493f131abc2, type: 2}
 --- !u!114 &618729346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,6 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   figureMaterial: {fileID: 2100000, guid: b0df61f85a6583242be7c7b8ea875cf4, type: 2}
+  previousColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1603,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &718558417
 GameObject:
@@ -1895,7 +1901,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &909276291
 GameObject:
@@ -2000,7 +2006,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0
-  m_FrequencyGain: 5
+  m_FrequencyGain: 2.5
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -2394,7 +2400,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1080154461
 GameObject:
@@ -3303,7 +3309,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1398311430
 GameObject:
@@ -3532,7 +3538,7 @@ Transform:
   m_LocalScale: {x: 10, y: 2.5, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1569777720
 GameObject:
@@ -3769,10 +3775,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 6161206718050867791, guid: 6d1545027c8d1d548809b77beadf012e, type: 3}
+  hitParticles: {fileID: 2540639308284301124, guid: fd3eed7ae1ba9b342b000b09ab47f331, type: 3}
   _positionChecker: {fileID: 1063020458}
   _pointsSystem: {fileID: 406559250}
   _stateColorChanger: {fileID: 1716752297}
   _cinemachineShake: {fileID: 970310758}
+  particlesMaterial: {fileID: 2100000, guid: 93bce6731c9067540b666493f131abc2, type: 2}
 --- !u!54 &1716752292
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3863,7 +3871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1716752297
 MonoBehaviour:
@@ -3878,6 +3886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   figureMaterial: {fileID: 2100000, guid: f0a1feb3986fc774eab93625aaf050db, type: 2}
+  previousColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1973467058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3889,6 +3898,7 @@ GameObject:
   - component: {fileID: 1973467061}
   - component: {fileID: 1973467060}
   - component: {fileID: 1973467059}
+  - component: {fileID: 1973467062}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -3974,8 +3984,21 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1973467062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973467058}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 4.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1997497268
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,11 +23,14 @@ public class FigureControl : MonoBehaviour
     private bool canMove = true;
 
     [SerializeField] private GameObject timerBar;
+    [SerializeField] private GameObject hitParticles;
+    
     [SerializeField] private PositionChecker _positionChecker;
     [SerializeField] private PointsSystem _pointsSystem;
     [SerializeField] private StateColorChanger _stateColorChanger;
     [SerializeField] private CinemachineShake _cinemachineShake;
-
+    [SerializeField] private Material particlesMaterial;
+    
     void OnMouseDown()
     {
         if (canMove && _positionChecker.canBeGrabbed)
@@ -93,6 +96,8 @@ public class FigureControl : MonoBehaviour
             if (collision.gameObject.CompareTag("Figure"))
             {
                 FigurePlaced(0);
+                particlesMaterial.color = _stateColorChanger.previousColor;
+                Instantiate(hitParticles, collision.transform.position, Quaternion.identity);
             }
     }
 
@@ -108,6 +113,8 @@ public class FigureControl : MonoBehaviour
                     _pointsSystem.LosePoints();
                     _stateColorChanger.ChangeStateColor(1);
                 }
+                particlesMaterial.color = _stateColorChanger.previousColor;
+                Instantiate(hitParticles, collider.transform.position, Quaternion.identity);
                 _cinemachineShake.ShakeCamera(1f,0.3f);
             }
     }

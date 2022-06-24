@@ -7,7 +7,7 @@ public class StateColorChanger : MonoBehaviour
 {
 
     [SerializeField] private Material figureMaterial;
-    private Color previousColor;
+    [HideInInspector] public Color previousColor;
 
     void Start() =>
         figureMaterial.color = new Color(
