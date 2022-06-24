@@ -19,10 +19,12 @@ public class FigureControl : MonoBehaviour
     private bool isDragging = false;
     private bool isChecked = false;
     private bool startPositionCheck = false;
+    private bool pointsLost = false;
     [SerializeField] private bool canMove = true;
 
     [SerializeField] private GameObject timerBar;
     [SerializeField] private PositionChecker _positionChecker;
+    [SerializeField] private PointsSystem _pointsSystem;
 
     void OnMouseDown()
     {
@@ -51,9 +53,12 @@ public class FigureControl : MonoBehaviour
             {
                 //Debug.Log("position changed");
                 Vector3 currentPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                if (currentPosition.y < freezedTransform.y)
+                if (currentPosition.y < freezedTransform.y && !pointsLost)
                 {
-                    //Debug.Log("points loss");
+                    Debug.Log("points loss");
+                    _pointsSystem.LosePoints();
+                    pointsLost = true;
+                    StartCoroutine(PointsChecker());
                 }
             }
         }
@@ -118,9 +123,7 @@ public class FigureControl : MonoBehaviour
                     Quaternion.identity).transform.SetParent(gameObject.transform);
                 StartCoroutine(CheckPosition());
             }
-            else if (type == 1)
-                FreezeFigure();
-            isChecked = true;
+            else FreezeFigure();
             innerType = type;
         }
     }
@@ -130,13 +133,23 @@ public class FigureControl : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         freezedTransform = transform.position;
         startPositionCheck = true;
+        if (!isChecked)
+            _pointsSystem.GetPoints();
+        isChecked = true;
     }
     
     IEnumerator CheckPosition()
     {
         _positionChecker.canBeGrabbed = false;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         _positionChecker.canBeGrabbed = true;
+    }
+
+    IEnumerator PointsChecker()
+    {
+        yield return new WaitForSeconds(3f);
+        if (transform.position.y >= freezedTransform.y - 0.1f)
+            _pointsSystem.GetPoints();
     }
     
 }
