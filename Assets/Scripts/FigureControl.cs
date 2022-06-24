@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using UnityEngine;
-using UnityEngine.iOS;
 using UnityEngine.PlayerLoop;
 
 public class FigureControl : MonoBehaviour
@@ -16,15 +16,14 @@ public class FigureControl : MonoBehaviour
 
     private bool isDragging = false;
 
-    private bool isChecking = false;
+    private bool isChecked = false;
 
-    private float bakeTimer = 2f;
-    private float elapsedTime;
+    [SerializeField] private GameObject timerBar;
 
     [SerializeField] private PositionChecker _positionChecker;
 
     [SerializeField] private bool canMove = true;
-    
+
     void OnMouseDown()
     {
         if (canMove && _positionChecker.canBeGrabbed)
@@ -48,23 +47,6 @@ public class FigureControl : MonoBehaviour
         transform.position = figureTransform;
     }
 
-    void FixedUpdate()
-    {
-        if (isChecking)
-        {
-            if (elapsedTime * Time.deltaTime > 0)
-            {
-                if (transform.position == figureTransform)
-                {
-                    //Do smth
-                }
-                else Debug.Log("Lol u died");
-
-                elapsedTime--;
-            }
-        }
-    }
-    
     void OnMouseDrag()
     {
         if (canMove && _positionChecker.canBeGrabbed)
@@ -88,31 +70,49 @@ public class FigureControl : MonoBehaviour
     {
         if (!isDragging && figureTransform.y > 3f)
             if (collision.gameObject.CompareTag("Figure"))
-                FigurePlaced();
+            {
+                FigurePlaced(0);
+            }
     }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (!isDragging && figureTransform.y > 3f)
             if (collider.gameObject.CompareTag("Podium"))
-                FigurePlaced();
+                FigurePlaced(1);
     }
 
-    void FigurePlaced()
+    void OnCollisionExit(Collision collision)
     {
-        Debug.Log("Collision detected");
-        canMove = false;
-        figureTransform = transform.position;
-        elapsedTime = bakeTimer;
-        StartCoroutine(CheckPosition());
+        if (collision.gameObject.CompareTag("Figure"))
+        {
+            Debug.Log("left collision");
+            Destroy(transform.GetChild(0).gameObject);
+        }
+    }
+    
+    void FigurePlaced(int type)
+    {
+        if (!isChecked)
+        {
+            Debug.Log("Collision detected");
+            canMove = false;
+            figureTransform = transform.position;
+            if (type == 0)
+            {
+                Instantiate(timerBar, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z),
+                    Quaternion.identity).transform.SetParent(gameObject.transform);
+                StartCoroutine(CheckPosition());
+            }
+
+            isChecked = true;
+        }
     }
     
     IEnumerator CheckPosition()
     {
-        isChecking = true;
         _positionChecker.canBeGrabbed = false;
-        yield return new WaitForSeconds(2f);
-        isChecking = false;
+        yield return new WaitForSeconds(4f);
         _positionChecker.canBeGrabbed = true;
     }
     

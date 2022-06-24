@@ -6,5 +6,4 @@ public class PositionChecker : MonoBehaviour
 {
 
     public bool canBeGrabbed = true;
-
 }
