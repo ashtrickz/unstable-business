@@ -29,7 +29,11 @@ public class PointsSystem : MonoBehaviour
     {
         text.text = "Points: " + acquiredPoints + "/" + requiredPoints;
         if (acquiredPoints == requiredPoints)
+        {
             winMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+            
     }
 
 }

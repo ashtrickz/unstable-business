@@ -141,7 +141,7 @@ public class FigureControl : MonoBehaviour
             }
             else if(_positionChecker.freePodium)
             {
-                FreezeFigure();
+                StartCoroutine(FreezePause());
                 _positionChecker.freePodium = false;
             }
             innerType = type;
@@ -166,6 +166,12 @@ public class FigureControl : MonoBehaviour
         _positionChecker.canBeGrabbed = true;
     }
 
+    IEnumerator FreezePause()
+    {
+        yield return new WaitForSeconds(1f);
+        FreezeFigure();
+    }
+    
     void PointsChecker()
     {
         if (transform.position.y >= freezedTransform.y - 0.1f)

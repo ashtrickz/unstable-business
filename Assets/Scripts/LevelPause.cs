@@ -19,9 +19,11 @@ public class LevelPause : MonoBehaviour
         {
             pausePanel.SetActive(false);
             pauseButton.SetActive(true);
+            Time.timeScale = 1;
         }
         else
         {
+            Time.timeScale = 0;
             pausePanel.SetActive(true);
             pauseButton.SetActive(false);
         }

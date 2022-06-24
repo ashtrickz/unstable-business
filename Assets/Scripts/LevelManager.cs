@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
 
     public void LevelChange(int levelId)
     {
+        Time.timeScale = 1;
         switch (levelId)
         {
             case 0:
