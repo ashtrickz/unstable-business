@@ -25,6 +25,7 @@ public class FigureControl : MonoBehaviour
     [SerializeField] private GameObject timerBar;
     [SerializeField] private PositionChecker _positionChecker;
     [SerializeField] private PointsSystem _pointsSystem;
+    [SerializeField] private StateColorChanger _stateColorChanger;
 
     void OnMouseDown()
     {
@@ -33,6 +34,7 @@ public class FigureControl : MonoBehaviour
             isDragging = true; //Debug.Log("Is Grabbed");
             mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             mOffset = gameObject.transform.position - GetMouseWorldPos();
+            _stateColorChanger.ChangeStateColor(1);
         }
     }
     
@@ -73,6 +75,7 @@ public class FigureControl : MonoBehaviour
     {
         if (canMove && _positionChecker.canBeGrabbed)
             isDragging = false;
+        _stateColorChanger.ChangeStateColor(0);
     }
 
     private Vector3 GetMouseWorldPos()
@@ -87,7 +90,7 @@ public class FigureControl : MonoBehaviour
         if (!isDragging && figureTransform.y > 3f)
             if (collision.gameObject.CompareTag("Figure"))
                 FigurePlaced(0);
-    }
+            }
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -96,7 +99,11 @@ public class FigureControl : MonoBehaviour
             {
                 if(_positionChecker.freePodium)
                     FigurePlaced(1);
-                else _pointsSystem.LosePoints();
+                else
+                {
+                    _pointsSystem.LosePoints();
+                    _stateColorChanger.ChangeStateColor(1);
+                }
             }
     }
 
@@ -111,6 +118,7 @@ public class FigureControl : MonoBehaviour
         if (!isChecked) //Debug.Log("Collision detected");
         {
             canMove = false;
+            _stateColorChanger.ChangeStateColor(2);
             figureTransform = transform.position;
             if (type == 0)
             {
@@ -135,6 +143,7 @@ public class FigureControl : MonoBehaviour
         if (!isChecked)
             _pointsSystem.GetPoints();
         isChecked = true;
+        _stateColorChanger.ChangeStateColor(3);
     }
     
     IEnumerator CheckPosition()
