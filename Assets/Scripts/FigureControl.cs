@@ -75,7 +75,8 @@ public class FigureControl : MonoBehaviour
     {
         if (canMove && _positionChecker.canBeGrabbed)
             isDragging = false;
-        _stateColorChanger.ChangeStateColor(0);
+        if (!isChecked)
+            _stateColorChanger.ChangeStateColor(0);
     }
 
     private Vector3 GetMouseWorldPos()
