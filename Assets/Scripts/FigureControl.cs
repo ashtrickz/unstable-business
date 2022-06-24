@@ -93,7 +93,11 @@ public class FigureControl : MonoBehaviour
     {
         if (!isDragging && figureTransform.y > 3f)
             if (collider.gameObject.CompareTag("Podium"))
-                FigurePlaced(1);
+            {
+                if(_positionChecker.freePodium)
+                    FigurePlaced(1);
+                else _pointsSystem.LosePoints();
+            }
     }
 
     void OnCollisionExit(Collision collision)
